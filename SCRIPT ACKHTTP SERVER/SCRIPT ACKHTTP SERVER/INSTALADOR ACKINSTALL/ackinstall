@@ -1,0 +1,451 @@
+#!/bin/bash
+### BY GOD OF SKY ###
+rm -f ackinstall
+rm -f Plus
+rm -f ackinstall*
+rm -f Plus*
+apt update -y && apt upgrade -y && apt install ufw -y
+wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/INSTALADOR%20ACKINSTALL/Plus > /dev/null 2>&1
+chattr -i /etc/resolv.conf
+chattr -i /etc/systemd/resolved.conf
+clear
+chmod +x Plus; ./Plus
+clear
+echo -e "America/Sao_Paulo" > /etc/timezone
+ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime > /dev/null 2>&1
+dpkg-reconfigure --frontend noninteractive tzdata > /dev/null 2>&1
+echo -e ""
+echo -e "\033[01;31m===================================================================="
+echo -e "|       \033[01;32mVPS SERVER\033[01;31m      ______         \033[01;32mCR34T3D  BY:\033[01;31m                |"
+echo "|                    .-.      .-.                                  |"
+echo "|                   /            \                                 |"
+echo -e "|                  | [\033[01;32m ACK HTTP \033[01;31m] |                                |"
+echo "|                  |,  .-.  .-.  ,|                                |"
+echo "|                  | )(|_/  \|_)( |                                |"
+echo "|                  |/     /\     \|                                |"
+echo "|          _       (_     ^^     _)                                |"
+echo "|  _\ ____) \_______\__|IIIIII|__/_______________________________  |"
+echo "| (_)[___]{}<________|-\IIIIII/-|________________________________/ |"
+echo "|   /     )_/        \          /                                  |"
+echo "|                     \ ______ /                                   |"
+echo -e "\033[01;31m===================================================================="
+echo -e "\033[1;33m >>>> INSTALANDO..... \033[0m"
+echo -e "\033[01;31m===================================================================="
+echo -e "\033[1;31m≠×≠×≠×≠×≠×≠×≠×≠×[\033[1;33m • \033[1;32mBY GOD OF SKY\033[1;33m •\033[1;31m ]≠×≠×≠×≠×≠×≠×≠×≠×\033[0m"
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'
+ ### "APT INSTALL"
+apt install htop -y > /dev/null 2>&1
+apt install iptables -y > /dev/null 2>&1
+apt install net-tools -y > /dev/null 2>&1
+apt install sysstat -y > /dev/null 2>&1
+apt install slurm -y > /dev/null 2>&1
+apt install intel-microcode -y > /dev/null 2>&1
+apt install haveged -y > /dev/null 2>&1
+apt install ethtool -y > /dev/null 2>&1
+apt install net-tools -y > /dev/null 2>&1
+apt install python3.7 -y > /dev/null 2>&1
+apt install gcc -y > /dev/null 2>&1
+apt install build-essential -y > /dev/null 2>&1
+apt install sysstat -y > /dev/null 2>&1
+pip install glances > /dev/null 2>&1
+apt remove apache -y > /dev/null 2>&1
+apt remove rpcbind -y > /dev/null 2>&1
+apt remove unscd -y > /dev/null 2>&1
+apt remove irqbalance -y > /dev/null 2>&1
+apt autoremove -y > /dev/null 2>&1
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'
+### "SWAPPING" ###
+fallocate -l 1G /swapfile > /dev/null 2>&1
+chmod 600 /swapfile
+mkswap /swapfile > /dev/null 2>&1
+swapon /swapfile > /dev/null 2>&1
+echo "/swapfile   none    swap    sw    0   0" >> /etc/fstab
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "SECURITY LIMITS" ###
+echo -n > /etc/security/limits.conf
+echo "root soft nproc unlimited" >> /etc/security/limits.conf
+echo "root hard nproc unlimited" >> /etc/security/limits.conf
+echo "root soft nofile 1048576" >> /etc/security/limits.conf
+echo "root hard nofile 1048576" >> /etc/security/limits.conf
+echo "root soft data unlimited" >> /etc/security/limits.conf
+echo "root hard data unlimited" >> /etc/security/limits.conf
+echo "root soft as unlimited" >> /etc/security/limits.conf
+echo "root hard as unlimited" >> /etc/security/limits.conf
+echo "root soft locks unlimited" >> /etc/security/limits.conf
+echo "root hard locks unlimited" >> /etc/security/limits.conf
+echo "root soft stack unlimited" >> /etc/security/limits.conf
+echo "root hard stack unlimited" >> /etc/security/limits.conf
+echo "root soft fsize unlimited" >> /etc/security/limits.conf
+echo "root hard fsize unlimited" >> /etc/security/limits.conf
+echo "root soft memlock unlimited" >> /etc/security/limits.conf
+echo "root hard memlock unlimited" >> /etc/security/limits.conf
+echo "root soft msgqueue unlimited" >> /etc/security/limits.conf
+echo "root hard msgqueue unlimited" >> /etc/security/limits.conf
+echo "root soft sigpending unlimited" >> /etc/security/limits.conf
+echo "root hard sigpending unlimited" >> /etc/security/limits.conf
+echo "root soft priority -11" >> /etc/security/limits.conf
+echo "root hard priority -11" >> /etc/security/limits.conf
+echo "root soft nice -11" >> /etc/security/limits.conf
+echo "root hard nice -11" >> /etc/security/limits.conf
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "FIREWALL" ###
+modprobe nf_conntrack
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p icmp -o eth0 -j ACCEPT
+iptables -A FORWARD -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A FORWARD -i eth0 -j ACCEPT
+iptables -A OUTPUT -o eth0 -j ACCEPT
+iptables -A OUTPUT -d 208.67.222.222 -j ACCEPT
+iptables -A OUTPUT -d 1.1.1.1 -j ACCEPT
+iptables -A OUTPUT -d 8.8.8.8 -j ACCEPT
+iptables -A INPUT -s 208.67.222.222 -j ACCEPT
+iptables -A INPUT -s 1.1.1.1 -j ACCEPT
+iptables -A INPUT -s 8.8.8.8 -j ACCEPT
+iptables -A INPUT -p udp --sport 53 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+iptables -A INPUT -p tcp --sport 53 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
+iptables-save > /etc/iptables.conf
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "HAVEGED" ###
+echo -n > /etc/default/haveged
+echo "DAEMON_ARGS="-w 16384"" >> /etc/default/haveged
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "NETWORKS" ###
+echo -n > /etc/networks
+echo "default         0.0.0.0" >> /etc/networks
+echo "loopback        127.0.0.1" >> /etc/networks
+echo "link-local      192.168.0.0" >> /etc/networks
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "SYSTEM.CONF" ###
+echo -n > /etc/systemd/system.conf
+echo "[Manager]" >> /etc/systemd/system.conf
+echo "IPAddressAllow=0.0.0.0" >> /etc/systemd/system.conf
+echo "DefaultTasksMax=200000" >> /etc/systemd/system.conf
+echo "DefaultLimitNOFILE=1048576" >> /etc/systemd/system.conf
+echo "DefaultTasksAccounting=yes" >> /etc/systemd/system.conf
+echo "DefaultLimitFSIZE=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitDATA=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitSTACK=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitCORE=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitRSS=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitAS=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitNPROC=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitMEMLOCK=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitLOCKS=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitSIGPENDING=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitMSGQUEUE=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitRTPRIO=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitRTTIME=infinity" >> /etc/systemd/system.conf
+echo "DefaultLimitNICE=-19" >> /etc/systemd/system.conf
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "HOSTS" ###
+echo -n > /etc/hosts
+echo -n > /etc/host.conf
+echo "127.0.0.1 www.google.com" >> /etc/hosts
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "order hosts,nospoof off,multi on,mdns on" >> /etc/host.conf
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "SYSTEMD-LOGIN" ###
+echo -n > /etc/systemd/logind.conf
+echo "[Login]" >> /etc/systemd/logind.conf
+echo "UserTasksMax=20000" >> /etc/systemd/logind.conf
+echo "SessionsMax=20000" >> /etc/systemd/logind.conf
+echo "InhibitorsMax=8192" >> /etc/systemd/logind.conf
+echo "KillUserProcesses=no" >> /etc/systemd/logind.conf
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "RESOLV.CONF" ###
+rm /etc/resolv.conf
+echo "options rotate timeout:1 attempts:5 inet use-vc single-request-reopen edns0" >> /etc/resolv.conf
+echo "search www.google.com" >> /etc/resolv.conf
+echo "nameserver 208.67.222.222" >> /etc/resolv.conf
+echo "nameserver 1.1.1.1" >> /etc/resolv.conf
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+chmod +x /etc/resolv.conf
+chattr +i /etc/resolv.conf
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "RESOLVED CONF" ###
+echo -n > /etc/systemd/resolved.conf
+echo "[Resolve]" >> /etc/systemd/resolved.conf
+echo "DNS=208.67.222.222 1.1.1.1 8.8.8.8" >> /etc/systemd/resolved.conf
+echo "FallbackDNS=208.67.222.222 1.1.1.1 8.8.8.8" >> /etc/systemd/resolved.conf
+echo "LLMNR=yes" >> /etc/systemd/resolved.conf
+echo "DNSSEC=yes" >> /etc/systemd/resolved.conf
+echo "Cache=yes" >> /etc/systemd/resolved.conf
+echo "DNSStubListener=udp" >> /etc/systemd/resolved.conf
+chattr +i /etc/systemd/resolved.conf
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "CRONTAB" ###
+crontab -r
+(crontab -l; echo "@daily /sbin/fstrim -a || true") | crontab - > /dev/null 2>&1
+(crontab -l; echo "@daily /bin/ackclear") | crontab - > /dev/null 2>&1
+(crontab -l; echo "@daily /bin/uexpired") | crontab - > /dev/null 2>&1
+(crontab -l; echo "@reboot /etc/autostart") | crontab - > /dev/null 2>&1
+(crontab -l; echo "@reboot sleep 10s && /bin/acksyshttpack") | crontab - > /dev/null 2>&1
+(crontab -l; echo "@reboot sleep 10s && /bin/prissh") | crontab - > /dev/null 2>&1
+(crontab -l; echo "@monthly /sbin/reboot") | crontab - > /dev/null 2>&1
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "SERVICE SSHD" ###
+echo -n > /etc/ssh/sshd_config
+echo "X11Forwarding yes" >> /etc/ssh/sshd_config
+echo "PrintMotd no" >> /etc/ssh/sshd_config
+echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config
+echo "Subsystem       sftp    /usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+echo "Compression yes" >> /etc/ssh/sshd_config
+echo "UseDNS yes" >> /etc/ssh/sshd_config
+echo "UsePAM yes" >> /etc/ssh/sshd_config
+echo "Authenticationmethods password" >> /etc/ssh/sshd_config
+echo "Kexalgorithms diffie-hellman-group14-sha1" >> /etc/ssh/sshd_config
+echo "Ciphers aes128-ctr" >> /etc/ssh/sshd_config
+echo "MACs hmac-sha1" >> /etc/ssh/sshd_config
+echo "Fingerprinthash MD5" >> /etc/ssh/sshd_config
+echo "ClientAliveCountMax 15" >> /etc/ssh/sshd_config
+echo "ClientAliveInterval 30s" >> /etc/ssh/sshd_config
+echo "MaxStartups 20000" >> /etc/ssh/sshd_config
+echo "MaxSessions 20000" >> /etc/ssh/sshd_config
+echo "MaxAuthTries 20000" >> /etc/ssh/sshd_config
+echo "LoginGraceTime 0s" >> /etc/ssh/sshd_config
+echo "TCPKeepAlive yes" >> /etc/ssh/sshd_config
+echo "Port 22" >> /etc/ssh/sshd_config
+echo "ipqos af21 cs1" >> /etc/ssh/sshd_config
+service sshd reload /dev/null 2>&1
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "SERVICE SSH" ###
+echo -n > /etc/ssh/ssh_config
+echo "Host *" >> /etc/ssh/ssh_config
+echo "ControlMaster auto" >> /etc/ssh/ssh_config
+echo "ControlPath ~/.ssh/%r@%h:%p" >> /etc/ssh/ssh_config
+echo "ControlPersist 86400s" >> /etc/ssh/ssh_config
+echo "ConnectTimeout 86400s" >> /etc/ssh/ssh_config
+echo "Compression yes" >> /etc/ssh/ssh_config
+echo "ConnectionAttempts 86400s" >> /etc/ssh/ssh_config
+echo "Port 22" >> /etc/ssh/ssh_config
+echo "ChallengeResponseAuthentication yes" >> /etc/ssh/ssh_config
+echo "ClearAllForwardings yes" >> /etc/ssh/ssh_config
+echo "ExitOnForwardFailure yes" >> /etc/ssh/ssh_config
+echo "Pubkeyauthentication no" >> /etc/ssh/ssh_config
+echo "PreferredAuthentications=password" >> /etc/ssh/ssh_config
+echo "Kexalgorithms diffie-hellman-group14-sha1" >> /etc/ssh/ssh_config
+echo "Ciphers aes128-ctr" >> /etc/ssh/ssh_config
+echo "MACs hmac-sha1" >> /etc/ssh/ssh_config
+echo "Fingerprinthash MD5" >> /etc/ssh/ssh_config
+echo "ServerAliveCountMax 15" >> /etc/ssh/ssh_config
+echo "ServerAliveInterval 30s" >> /etc/ssh/ssh_config
+echo "TCPKeepAlive yes" >> /etc/ssh/ssh_config
+echo "ipqos af21 cs1" >> /etc/ssh/ssh_config
+service ssh reload /dev/null 2>&1
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "AUTO MENU " ###
+grep -v "^menu;" /etc/profile > /tmp/tmpass && mv /tmp/tmpass /etc/profile
+echo "menu;" >> /etc/profile
+echo "export TMOUT=0" >> /etc/profile
+#'+++++++++++++++++++++++++++++++++++++++++++'
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "FERRAMENTAS" ###
+cd /bin/ && rm -f ackclear*
+cd /bin/ && rm -f acksyshttpack*
+cd /bin/ && rm -f prissh*
+cd /bin/ && rm -f blocksite*
+cd /bin/ && rm -f blockt*
+cd /bin/ && rm -f swapmemory*
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/FERRAMENTAS/ackclear > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/FERRAMENTAS/acksyshttpack > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/FERRAMENTAS/prissh > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/FERRAMENTAS/blocksite > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/FERRAMENTAS/blockt > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/FERRAMENTAS/swapmemory > /dev/null 2>&1
+cd /bin/ && chmod +x ackclear
+cd /bin/ && chmod +x acksyshttpack
+cd /bin/ && chmod +x prissh
+cd /bin/ && chmod +x blocksite
+cd /bin/ && chmod +x blockt
+cd /bin/ && chmod +x swapmemory
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "PYTHON SOCKS" ###
+cd /etc/SSHPlus && rm -rf proxy.py*
+cd /etc/SSHPlus && rm -rf open.py*
+cd /etc/SSHPlus && rm -rf wsproxy.py*
+cd /etc/SSHPlus && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PYTHON%20SOCKS/proxy.py > /dev/null 2>&1
+cd /etc/SSHPlus && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PYTHON%20SOCKS/open.py > /dev/null 2>&1
+cd /etc/SSHPlus && chmod +x proxy.py
+cd /etc/SSHPlus && chmod +x open.py
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "BADVPN UDP" ###
+cd /bin/ && rm -f badvpn*
+cd /bin/ && rm -f badvpn-udpgw*
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/BADVPN%20UDP/badvpn > /dev/null 2>&1
+cd /bin/ && wget https://github.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/raw/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/BADVPN%20UDP/badvpn-udpgw > /dev/null 2>&1
+cd /bin/ && chmod +x badvpn
+cd /bin/ && chmod +x badvpn-udpgw
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "BOTSSH" ###
+cd /bin/ && rm -f botssh
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/BOTSSH/botssh > /dev/null 2>&1
+cd /bin/ && chmod +x botssh
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "PAM.SO SSHD LOGIND"###
+cd /etc/pam.d && rm -f common-session-noninteractive*
+cd /etc/pam.d && rm -f common-password*
+cd /etc/pam.d && rm -f common-account*
+cd /etc/pam.d && rm -f common-session*
+cd /etc/pam.d && rm -f systemd-user*
+cd /etc/pam.d && rm -f common-auth*
+cd /etc/pam.d && rm -f passwd*
+cd /etc/pam.d && rm -f other*
+cd /etc/pam.d && rm -f login*
+cd /etc/pam.d && rm -f sshd*
+cd /etc/pam.d && rm -f cron*
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/common-session-noninteractive > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/common-password > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/common-account  > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/common-session > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/systemd-user  > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/common-auth > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/passwd  > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/other  > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/login  > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/sshd  > /dev/null 2>&1
+cd /etc/pam.d && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/PAM.SO/cron  > /dev/null 2>&1
+cd /etc/pam.d && chmod +x common-session-noninteractive
+cd /etc/pam.d && chmod +x common-password
+cd /etc/pam.d && chmod +x common-account
+cd /etc/pam.d && chmod +x common-session
+cd /etc/pam.d && chmod +x systemd-user
+cd /etc/pam.d && chmod +x common-auth
+cd /etc/pam.d && chmod +x passwd
+cd /etc/pam.d && chmod +x other
+cd /etc/pam.d && chmod +x login
+cd /etc/pam.d && chmod +x sshd
+cd /etc/pam.d && chmod +x cron
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "SLOW-DNS" ###
+rm -rf /etc/slowdns*
+mkdir /etc/slowdns
+rm -f /bin/slowdns*
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/slowdns > /dev/null 2>&1
+cd /etc/slowdns && wget https://github.com/ACKHTTP/ACKHTTP-SERVER-MANAGER/raw/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/dns-server > /dev/null  2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/remove-slow > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/restartdns > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/slowdns-drop > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/slowdns-info > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/slowdns-socks > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/slowdns-ssh > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/slowdns-ssl > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/startdns > /dev/null 2>&1
+cd /etc/slowdns && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/SLOWDNS/stopdns > /dev/null 2>&1
+cd /bin/ && chmod +x slowdns
+cd /etc/slowdns && chmod +x dns-server
+cd /etc/slowdns && chmod +x remove-slow
+cd /etc/slowdns && chmod +x restartdns
+cd /etc/slowdns && chmod +x slowdns-drop
+cd /etc/slowdns && chmod +x slowdns-info
+cd /etc/slowdns && chmod +x slowdns-socks
+cd /etc/slowdns && chmod +x slowdns-ssh
+cd /etc/slowdns && chmod +x slowdns-ssl
+cd /etc/slowdns && chmod +x startdns
+cd /etc/slowdns && chmod +x stopdns
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+# ACKHTTP SERVER +++++ ACKHTTP SERVER +++++++'
+#'+++++++++++++++++++++++++++++++++++++++++++'#
+### "MENU, CONEXAO, ETC" ###
+cd /bin/ && rm -f conexao*
+cd /bin/ && rm -f menu*
+cd /bin/ && rm -f sshmonitor*
+cd /bin/ && rm -f criarusuario*
+cd /bin/ && rm -f uexpired*
+cd /bin/ && rm -f remover*
+cd /bin/ && rm -f criarteste*
+cd /bin/ && rm -f alterarlimite*
+cd /bin/ && rm -f alterarsenha*
+cd /bin/ && rm -f detalhes*
+cd /bin/ && rm -f infousers*
+cd /bin/ && rm -f expcleaner*
+cd /bin/ && rm -f banner*
+cd /bin/ && rm -f mudardata*
+cd /bin/ && rm -f delscript*
+cd /bin/ && rm -f senharoot*
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/conexao > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/menu > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/sshmonitor > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/criarusuario > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/uexpired > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/remover > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/criarteste > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/alterarlimite > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/alterarsenha > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/detalhes > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/infousers > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/expcleaner > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/banner > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/mudardata > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/delscript > /dev/null 2>&1
+cd /bin/ && wget https://raw.githubusercontent.com/phsl-ofc/ACKHTTP-SERVER-MANAGER/main/SCRIPT%20ACKHTTP%20SERVER/SCRIPT%20ACKHTTP%20SERVER/MENU%2C%20CONEX%C3%83O%2C%20ETC/senharoot > /dev/null 2>&1
+cd /bin/ && chmod +x conexao
+cd /bin/ && chmod +x menu
+cd /bin/ && chmod +x sshmonitor
+cd /bin/ && chmod +x criarusuario
+cd /bin/ && chmod +x uexpired
+cd /bin/ && chmod +x remover
+cd /bin/ && chmod +x criarteste
+cd /bin/ && chmod +x alterarlimite
+cd /bin/ && chmod +x alterarsenha
+cd /bin/ && chmod +x detalhes
+cd /bin/ && chmod +x infousers
+cd /bin/ && chmod +x expcleaner
+cd /bin/ && chmod +x banner
+cd /bin/ && chmod +x mudardata
+cd /bin/ && chmod +x delscript
+cd /bin/ && chmod +x senharoot
+#######################################
+#### "FIM" ####
+clear
+senharoot
+echo -e "\033[01;31m===================================================================="
+echo -e " \033[1;32m[ TODOS OS AJUSTES, CONCLUIDOS ! ] \033[1;33m"
+echo -e ""
+echo -e " \033[1;33m[ SISTEMA REINICIANDO EM 10 SEGUNDOS...  ]"
+echo -e "\033[01;31m===================================================================="
+sleep 10s;reboot

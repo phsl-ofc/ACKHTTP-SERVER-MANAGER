@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo -e "\033[1;33mA SENHA ESCRITA, SERA DE ACESSO AO SERVIDOR (root)\033[0m"
+echo ""
+echo -e "\033[1;36mDIGITE SUA SENHA NOVA  \033[1;37m"
+echo ""
+read  -p : pass
+(echo $pass; echo $pass)|passwd 2>/dev/null
+sleep 1s
+
+echo ""
+echo -e "\033[1;32mSENHA ATUALIZADA !\033[0m"
+sleep 5s
+cd
+clear
+

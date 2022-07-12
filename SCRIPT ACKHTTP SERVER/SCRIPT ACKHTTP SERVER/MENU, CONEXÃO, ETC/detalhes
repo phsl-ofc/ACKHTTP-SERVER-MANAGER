@@ -1,0 +1,86 @@
+#!/bin/bash
+clear
+echo -e "\E[41;1;37m               INFORMACOES DO SERVIDOR                 \E[0m"
+echo "-------------------------------------------------------------------"
+if [ -f /etc/lsb-release ]
+then
+echo ""
+name=$(cat /etc/lsb-release |grep DESCRIPTION |awk -F = {'print $2'})
+if [ -f /etc/os-release ]
+then
+devlike=$(cat /etc/os-release |grep LIKE |awk -F = {'print $2'})
+echo -e "\033[1;33mDerivado do OS: \033[1;37m$devlike"
+echo ""
+fi
+else
+system=$(cat /etc/issue.net)
+diskText=$(df -h | awk '$NF=="/"{printf "%d/%dGB (%s)\n", $3,$2,$5}')
+echo -e "\033[1;37m○  \033[1;32mSISTEMA OPERACIONAL\033[0m"
+echo -e "\033[1;32m⌵ NOME:  \033[1;37m$system"
+echo -e "\033[1;32m⌵ KERNEL RELEASE:  \033[1;37m$(uname -r)"
+echo -e "\033[1;32m⌵ KERNEL:  \033[1;37m$(uname -s)"
+echo -e "\033[1;32m⌵ DISCO USADO:  \033[37m$diskText"
+echo -e "\033[1;32m⌵ SERVIDOR LIGADO:  \033[1;37m$(uptime | awk -F, '{sub(".*up ",x,$1);print $1}')"
+echo "-------------------------------------------------------------------"
+fi
+
+if [ -f /proc/cpuinfo ]
+then
+echo -e "\033[1;37m○  \033[1;32mPROCESSADOR VIRTUAL\033[0m"
+modelo=$(cat /proc/cpuinfo |grep "model name" |uniq |awk -F : {'print $2'})
+cpucores=$(grep -c cpu[0-9] /proc/stat)
+cache=$(cat /proc/cpuinfo |grep "cache size" |uniq |awk -F : {'print $2'})
+uso=$(printf '%-1s' "$(mpstat | awk 'END{print 100-$NF"%"}')")
+GHZ=`lscpu |awk -F : '($1=="CPU MHz") {printf "%3.2fGHz\n", $2/1000}'`
+echo -e "\033[1;32m⌵ MODELO: \033[1;37m$modelo"
+echo -e "\033[1;32m⌵ CLOCK:   \033[1;37m$GHZ"
+echo -e "\033[1;32m⌵ MEMORIA CACHE: \033[1;37m$cache"
+echo -e "\033[1;32m⌵ ARQUITETURA:  \033[1;37m$(uname -m)"
+echo -e "\033[1;32m⌵ TOTAL VCPUs: \033[1;37m $cpucores"
+echo -e "\033[1;32m⌵ UTILIZADO:  \033[37m$uso"
+echo "-------------------------------------------------------------------"
+
+
+else
+echo -e "\033[1;32mPROCESSADOR\033[0m"
+echo ""
+echo "Não foi possivel obter informações"
+fi
+
+if free 1>/dev/null 2>/dev/null
+then
+ram1=$(free -h | grep -i mem | awk {'print $2'})
+ram2=$(free -h | grep -i mem | awk {'print $4'})
+ram3=$(free -h | grep -i mem | awk {'print $3'})
+usoram=$(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
+
+echo -e "\033[1;37m○  \033[1;32mMEMORIA RAM\033[0m"
+echo -e "\033[1;32m⌵ TOTAL INSTALADO:  \033[1;37m$ram1"
+echo -e "\033[1;32m⌵ TOTAL LIVRE:  \033[1;37m$ram2"
+echo -e "\033[1;32m⌵ EM USO:  \033[1;37m$ram3"
+echo -e "\033[1;32m⌵ UTILIZADO:  \033[1;37m$usoram"
+echo "-------------------------------------------------------------------"
+
+swap1=$(free -h | grep -i swap | awk {'print $2'})
+swap2=$(free -h |grep -i swap |awk {'print $4'})
+swap3=$(free -h | grep -i swap | awk {'print $3'})
+usoswap=$(free -m |grep -i swap |awk {'print $3'})
+echo -e "\033[1;37m○  \033[1;32mMEMORIA SWAP\033[0m"
+echo -e "\033[1;32m⌵ TOTAL INSTALADO:  \033[1;37m$swap1"
+echo -e "\033[1;32m⌵ TOTAL LIVRE:  \033[1;37m$swap2"
+echo -e "\033[1;32m⌵ EM USO:  \033[1;37m$swap3"
+echo "-------------------------------------------------------------------"
+else
+echo -e "\033[1;32mMEMORIA RAM\033[0m"
+echo ""
+echo "Não foi possivel obter informações"
+fi
+[[ ! -e /bin/versao ]] && rm -rf /etc/SSHPlus
+echo -e "\033[1;32m◉  SERVICOS (ONLINE) \033[0m"
+echo "-------------------------------------------------------------------"
+PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
+    svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
+    echo -e "\033[1;32m⌵ PROGRAMA: \033[1;37m[ $svcs ] \033[1;32mPORTA > \033[1;37m$porta"
+echo "-------------------------------------------------------------------"
+done

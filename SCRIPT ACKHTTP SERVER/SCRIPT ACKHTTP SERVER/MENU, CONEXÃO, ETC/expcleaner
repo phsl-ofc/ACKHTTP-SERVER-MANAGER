@@ -1,0 +1,22 @@
+#!/bin/bash
+datenow=$(date +%s)
+echo -e "\E[41;1;37m CLIENTE          DATA          ATUALMENTE         ACAO   \E[0m"
+echo ""
+for user in $(awk -F: '{print $1}' /etc/passwd); do
+	expdate=$(chage -l $user|awk -F: '/Account expires/{print $2}')
+	echo $expdate|grep -q never && continue
+	datanormal=$(date -d"$expdate" '+%d/%m/%Y')
+	tput setaf 7 ; tput bold ; printf '%-15s%-17s%s' $user $datanormal ; tput sgr0
+	expsec=$(date +%s --date="$expdate")
+	diff=$(echo $datenow - $expsec|bc -l)
+	tput setaf 2 ; tput bold
+	echo $diff|grep -q ^\- && echo "  ATIVO        NAO  REMOVIDO" && continue
+	echo "VENCIDO    REMOVIDO"
+	tput setaf 1 ; tput bold
+	pkill -f $user
+	userdel --force $user > /dev/null 2>&1
+	grep -v ^$user[[:space:]] /root/usuarios.db > /tmp/ph ; cat /tmp/ph > /root/usuarios.db
+done
+tput sgr0 
+echo ""
+sleep 5.5s
